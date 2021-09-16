@@ -1,0 +1,195 @@
+@charset "ISO-8859-1";
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Ropa Sans', sans-serif;
+}
+
+/* NAV CONTAINER */
+.nav-container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 8vh;
+	color: white;
+	background-color: #0d1225;
+}
+
+.logo {
+	letter-spacing: 5px;
+	font-size: 15px;
+}
+
+.nav-links {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: space-around;
+	width: 30%;
+}
+
+.nav-links li {
+	list-style: none;
+}
+
+.nav-links a {
+	color: white;
+	text-decoration: none;
+	letter-spacing: 1px;
+	font-size: 14px;
+}
+
+/* CONTAINER INICIO */
+.container.inicio {
+	display: flex;
+}
+
+/* CONTAINER MENU */
+.container-menu {
+	background-color: #ffffff;
+	width: 340px;
+	height: 91vh;
+	/* Para centrar los items */
+	float: left;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.container-wallet {
+	width: 300px;
+	height: 80px;
+	background-color: rgba(255, 184, 0, 0.5);
+	margin-top: 30px;
+	border: #ffffff 3px solid;
+	border-radius: 10px;
+	margin-bottom: 30px;
+}
+
+.container-wallet p {
+	margin: 0;
+	margin-left: 10px;
+	font-size: 20px;
+}
+
+#wallet-price {
+	margin: 0;
+	text-align: center;
+	font-size: 30px;
+}
+
+.container-options {
+	width: 100%;
+	margin-top: 40px;
+	float: left;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.option {
+	width: 200px;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.a-desing {
+	text-decoration: none;
+}
+
+.option-imagen img {
+	height: 25px;
+	float: left;
+}
+
+/* CONTAINER DASHBOARD */
+.desing {
+	background-color: #f0e8e8;
+	/* border: tomato 5px solid; */
+}
+
+.container-dashboard {
+	display: flex;
+	margin: 0;
+	flex-direction: column;
+}
+
+/* TITULO DASHBOARD */
+.titulo-item {
+	height: 80px;
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.titulo-item h1 {
+	font-size: 30px;
+}
+
+.titulo-item .option-imagen {
+	margin-left: 20px;
+}
+
+.titulo-item .option-imagen img {
+	height: 80px;
+	border-radius: 100px;
+}
+
+/* SIDES DASHBOARDS */
+.container-sides-dashboard {
+	display: flex;
+}
+
+/* LEFT SIDE DASHBOARD */
+.left-side-dashboard {
+	float: left;
+	width: 70%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.left-side-dashboard h3 {
+	margin-left: 100px;
+	width: 100%;
+}
+
+.card {
+	margin-bottom: 20px;
+	margin-left: 100px;
+	margin-right: 30px;
+}
+
+/* RIGHT SIDE DASHBOARD */
+.right-side-dashboard {
+	float: left;
+	width: 25%;
+}
+
+.container-filtro {
+	background-color: #0d1225;
+	color: white;
+	border: #0d1225 5px solid;
+	border-radius: 10px;
+}
+
+.filtro-title {
+	text-align: center;
+}
+
+.filtro-inputs {
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-bottom: 10px;
+}
+
+.button-filtro {
+	display: flex;
+	justify-content: center;
+}
