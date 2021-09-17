@@ -40,7 +40,7 @@ public class Category {
 public Category() {
 		startups=new ArrayList<Startup>();
 	}
-
+//ga
 
 public Category(Integer id, String name, String image, boolean state, List<Startup> startups) {
 	super();
