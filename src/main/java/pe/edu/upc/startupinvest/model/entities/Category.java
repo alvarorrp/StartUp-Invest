@@ -1,5 +1,5 @@
 package pe.edu.upc.startupinvest.model.entities;
-
+//michulon
 import java.util.ArrayList;
 import java.util.List;
 
