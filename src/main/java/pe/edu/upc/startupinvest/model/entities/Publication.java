@@ -17,7 +17,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "Publications",indexes= {@Index(columnList = "publication_id", name = "publications_index_publication_id")})
+@Table(name = "Publications",indexes= {@Index(columnList = "publication_id", name = "publications_index_publication_id"),
+		                               @Index(columnList = "publication_name", name = "publications_index_publication_name")
+})
 @SequenceGenerator(name = "Publications_publication_id_seq", initialValue = 1, allocationSize = 1)
 public class Publication {
 	@Id
