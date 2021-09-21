@@ -48,4 +48,14 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 		return entities;
 	}
 
+
+	@Override
+	public List<Category> findByCategoryState(boolean state) {
+		String jpql= "select categories from Categories categories where categories.category_state ="+state;
+		List<Category>entities=new ArrayList<Category>();
+		TypedQuery<Category> typedQuery=getEntityManager().createQuery(jpql,Category.class);
+		entities=typedQuery.getResultList();
+		return entities;
+	}
+
 }

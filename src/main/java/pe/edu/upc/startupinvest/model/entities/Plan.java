@@ -39,7 +39,7 @@ public class Plan {
 	@JoinColumn(name = "monetary_unit_id", nullable = false)
 	private MonetaryUnit monetaryUnit;
 
-	@OneToMany(mappedBy = "plan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "plan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlanHistory> plansHistory;
 
 	

@@ -1,5 +1,8 @@
 package pe.edu.upc.startupinvest.service.crud.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import pe.edu.upc.startupinvest.model.entities.Category;
@@ -15,5 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public JpaRepository<Category, Integer> getJpaRepository() {
 		return categoryRepository;
+	}
+
+	@Override
+	public  List<Category> findByState(boolean state) {
+		
+		return categoryRepository.findByCategoryState(state);	
 	}
 }

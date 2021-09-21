@@ -16,7 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Categories", indexes = { @Index(columnList = "category_id", name = "categories_index_category_id"),
-		@Index(columnList = "category_name", name = "categories_index_category_name") })
+		                                @Index(columnList = "category_name", name = "categories_index_category_name"),
+		                                @Index(columnList= "category_state",name ="categories_index_category_state")
+})
 @SequenceGenerator(name = "Categories_category_id_seq", initialValue = 1, allocationSize = 1)
 public class Category {
 	@Id
@@ -36,11 +38,13 @@ public class Category {
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private List<Startup> startups;
 	
-
+//LAZY-->ATRIBUTOS
+//EAGER-->LISTA + ATRIBUTOS	
 public Category() {
 		startups=new ArrayList<Startup>();
 	}
 //gagaga
+
 
 public Category(Integer id, String name, String image, boolean state, List<Startup> startups) {
 	super();
@@ -100,5 +104,7 @@ public List<Startup> getStartups() {
 public void setStartups(List<Startup> startups) {
 	this.startups = startups;
 }
+
+
 
 }
