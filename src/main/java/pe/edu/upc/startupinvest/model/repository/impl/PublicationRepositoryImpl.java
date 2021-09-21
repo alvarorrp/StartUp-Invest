@@ -1,10 +1,13 @@
 package pe.edu.upc.startupinvest.model.repository.impl;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
+import pe.edu.upc.startupinvest.model.entities.Category;
 import pe.edu.upc.startupinvest.model.entities.Publication;
 import pe.edu.upc.startupinvest.model.repository.PublicationRepository;
 public class PublicationRepositoryImpl implements  PublicationRepository{
@@ -28,6 +31,18 @@ public class PublicationRepositoryImpl implements  PublicationRepository{
 	public List<Publication> findAll() throws Exception {
 		String jpql = "SELECT publications FROM Publications publications";	
 		return findAll(Publication.class, jpql);
+	}
+
+
+	@Override
+	public List<Publication> findPublicationByName(String name) {
+		String jpql = "SELECT publications FROM Publications publications where publication_name ='"+name+"'";
+		List<Publication> entities = new ArrayList<Publication>();
+		// Execute Query
+		TypedQuery<Publication> typedQuery = getEntityManager().createQuery(jpql, Publication.class);
+		// Getting result list
+		entities = typedQuery.getResultList();		
+		return entities;
 	}
 	
 }
