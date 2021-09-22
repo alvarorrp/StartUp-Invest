@@ -34,10 +34,6 @@ public class InvestmentRequest {
 	private Startup startup;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "monetary_unit_id")
-	private MonetaryUnit monetaryUnit;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "type_investment_id")
 	private TypeInvestment typeInvestment;
 	
@@ -76,13 +72,12 @@ public class InvestmentRequest {
 
 	
 
-	public InvestmentRequest(Integer id, Startup startup, MonetaryUnit monetaryUnit, TypeInvestment typeInvestment,
+	public InvestmentRequest(Integer id, Startup startup,TypeInvestment typeInvestment,
 			Double amount, Boolean state, String description, Double porcentage, Date creationDate, Date expirationDate,
 			Date returnDate, List<InvestorHistory> investorHistories) {
 		super();
 		this.id = id;
 		this.startup = startup;
-		this.monetaryUnit = monetaryUnit;
 		this.typeInvestment = typeInvestment;
 		this.amount = amount;
 		this.state = state;
@@ -111,14 +106,6 @@ public class InvestmentRequest {
 
 	public void setStartup(Startup startup) {
 		this.startup = startup;
-	}
-
-	public MonetaryUnit getMonetaryUnit() {
-		return monetaryUnit;
-	}
-
-	public void setMonetaryUnit(MonetaryUnit monetaryUnit) {
-		this.monetaryUnit = monetaryUnit;
 	}
 
 	public TypeInvestment getTypeInvestment() {

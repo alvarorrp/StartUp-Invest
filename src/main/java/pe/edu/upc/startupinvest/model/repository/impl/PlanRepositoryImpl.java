@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import pe.edu.upc.startupinvest.model.entities.MonetaryUnit;
 import pe.edu.upc.startupinvest.model.entities.Plan;
 import pe.edu.upc.startupinvest.model.repository.PlanRepository;
 

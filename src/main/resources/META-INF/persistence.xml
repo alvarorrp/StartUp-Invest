@@ -9,7 +9,6 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 	<class>pe.edu.upc.startupinvest.model.entities.InvestmentRequest</class>
 	<class>pe.edu.upc.startupinvest.model.entities.Investor</class>
 	<class>pe.edu.upc.startupinvest.model.entities.InvestorHistory</class>
-	<class>pe.edu.upc.startupinvest.model.entities.MonetaryUnit</class>
 	<class>pe.edu.upc.startupinvest.model.entities.Plan</class>
 	<class>pe.edu.upc.startupinvest.model.entities.PlanHistory</class>
 	<class>pe.edu.upc.startupinvest.model.entities.Publication</class>
