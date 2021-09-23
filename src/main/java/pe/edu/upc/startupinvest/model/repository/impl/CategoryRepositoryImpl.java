@@ -39,7 +39,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	@Override
 	 public List<Category> findByCategoryName(String name) {
 
-		String jpql = "SELECT categories FROM Categories categories where category_name='"+name+"'";
+		String jpql = "SELECT categories FROM Categories categories where categories.category_name='"+name+"'";
 		List<Category> entities = new ArrayList<Category>();
 		// Execute Query
 		TypedQuery<Category> typedQuery = getEntityManager().createQuery(jpql, Category.class);

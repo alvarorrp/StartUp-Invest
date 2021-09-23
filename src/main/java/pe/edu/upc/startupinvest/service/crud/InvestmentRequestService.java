@@ -7,5 +7,5 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public interface InvestmentRequestService extends CrudService<InvestmentRequest, Integer> {
-
+	
 }

@@ -46,8 +46,6 @@ public class InvestmentRequest {
 	@Column(name = "investment_request_description",length = 200,nullable = false)
 	private String description;
 	
-	@Column(name = "investment_request_porcentage",columnDefinition = "DECIMAL(2,2)",nullable = false)
-	private Double porcentage;
 	
 	@Column(name = "investment_request_creation_date")
 	@Temporal(TemporalType.DATE)
@@ -73,7 +71,7 @@ public class InvestmentRequest {
 	
 
 	public InvestmentRequest(Integer id, Startup startup,TypeInvestment typeInvestment,
-			Double amount, Boolean state, String description, Double porcentage, Date creationDate, Date expirationDate,
+			Double amount, Boolean state, String description, Date creationDate, Date expirationDate,
 			Date returnDate, List<InvestorHistory> investorHistories) {
 		super();
 		this.id = id;
@@ -82,7 +80,6 @@ public class InvestmentRequest {
 		this.amount = amount;
 		this.state = state;
 		this.description = description;
-		this.porcentage = porcentage;
 		this.creationDate = creationDate;
 		this.expirationDate = expirationDate;
 		this.returnDate = returnDate;
@@ -138,14 +135,6 @@ public class InvestmentRequest {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Double getPorcentage() {
-		return porcentage;
-	}
-
-	public void setPorcentage(Double porcentage) {
-		this.porcentage = porcentage;
 	}
 
 	public Date getCreationDate() {

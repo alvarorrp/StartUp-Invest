@@ -25,4 +25,12 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		return categoryRepository.findByCategoryState(state);	
 	}
+
+	@Override
+	public List<Category> findByCategoryName(String name) {
+		return categoryRepository.findByCategoryName(name);
+	}
+	
+	
+	
 }

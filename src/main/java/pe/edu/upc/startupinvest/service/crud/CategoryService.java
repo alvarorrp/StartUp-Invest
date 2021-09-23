@@ -12,9 +12,8 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public interface CategoryService extends CrudService<Category, Integer> {
-
 	
+	List<Category> findByCategoryName(String name);
 	List<Category> findByState(boolean state);
-	
 	
 }
