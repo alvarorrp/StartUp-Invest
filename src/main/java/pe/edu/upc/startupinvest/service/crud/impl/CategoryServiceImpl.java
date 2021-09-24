@@ -21,16 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public  List<Category> findByState(boolean state) {
-		
-		return categoryRepository.findByCategoryState(state);	
-	}
-
-	@Override
 	public List<Category> findByCategoryName(String name) {
 		return categoryRepository.findByCategoryName(name);
 	}
 	
-	
+	@Override
+	public  List<Category> findByState(boolean state) {
+		return categoryRepository.findByCategoryState(state);	
+	}
 	
 }
