@@ -24,7 +24,8 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Startups", indexes = { @Index(columnList = "startup_id", name = "startups_index_startup_id"),
 		@Index(columnList = "startup_name", name = "startups_index_startup_name"),
-		@Index(columnList = "startup_state", name = "startups_index_startup_state") }, uniqueConstraints = {
+		@Index(columnList = "startup_state", name = "startups_index_startup_state"),
+        @Index(columnList = "startup_register_date", name = "startups_index_startup_register_date")}, uniqueConstraints = {
 				@UniqueConstraint(columnNames = { "startup_ruc" }) })
 @SequenceGenerator(name = "Startups_startup_id_seq", initialValue = 1, allocationSize = 1)
 public class Startup {

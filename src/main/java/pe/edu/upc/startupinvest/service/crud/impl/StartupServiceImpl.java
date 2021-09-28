@@ -2,6 +2,7 @@ package pe.edu.upc.startupinvest.service.crud.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -21,27 +22,38 @@ public class StartupServiceImpl implements StartupService {
 	}
 
 	@Override
-	public List<Startup> findByName(String name) {
+	public Optional<Startup> findById(Integer id) throws Exception {
+		return startupRepository.findById(id);
+	}
+	
+	@Override
+	public List<Startup> findAll() throws Exception {
+		return startupRepository.findAll();
+	}
+	
+	
+	@Override
+	public List<Startup> findByName(String name) throws Exception{
 		return startupRepository.findByName(name);
 	}
 
 	@Override
-	public List<Startup> findByState(Boolean state) {
+	public List<Startup> findByState(Boolean state) throws Exception {
 		return startupRepository.findByState(state);
 	}
 
 	@Override
-	public List<Startup> findByDateRecently() {
+	public List<Startup> findByDateRecently() throws Exception{
 		return startupRepository.findByDateRecently();
 	}
 
 	@Override
-	public List<Startup> findByDateBetween(Date date1, Date date2) {
+	public List<Startup> findByDateBetween(Date date1, Date date2) throws Exception {
 		return startupRepository.findByDateBetween(date1, date2);
 	}
 
 	@Override
-	public List<Startup> findByPopular() {
+	public List<Startup> findByPopular() throws Exception{
 		return startupRepository.findByPopular();
 	}
 	

@@ -6,8 +6,8 @@ import pe.edu.upc.startupinvest.model.entities.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-	List<Category>findByCategoryName(String name);	
-	List<Category>findByCategoryState (boolean state);
+	List<Category>findByName(String name) throws Exception;	
+	List<Category>findByState (boolean state) throws Exception;
 	
 	
 }

@@ -13,7 +13,9 @@ import javax.inject.Named;
 @ApplicationScoped
 public interface CategoryService extends CrudService<Category, Integer> {
 	
-	List<Category> findByCategoryName(String name);
-	List<Category> findByState(boolean state);
+	Optional<Category> findById(Integer id) throws Exception;
+	List<Category> findAll() throws Exception;
+	List<Category> findByName(String name) throws Exception;
+	List<Category> findByState(boolean state) throws Exception;
 	
 }
