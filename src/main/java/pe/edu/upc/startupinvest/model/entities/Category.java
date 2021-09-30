@@ -19,7 +19,7 @@ import javax.persistence.Table;
 		                                @Index(columnList = "category_name", name = "categories_index_category_name"),
 		                                @Index(columnList= "category_state",name ="categories_index_category_state")
 })
-@SequenceGenerator(name = "Categories_category_id_seq", initialValue = 2, allocationSize = 1)
+@SequenceGenerator(name = "Categories_category_id_seq", initialValue = 100, allocationSize = 1)
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Categories_category_id_seq")

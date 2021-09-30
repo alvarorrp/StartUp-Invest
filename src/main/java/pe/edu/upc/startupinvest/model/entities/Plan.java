@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "Plans",indexes = { @Index(columnList = "plan_id", name = "plans_index_plan_id"),
 		                          @Index(columnList = "plan_name", name = "plans_index_plan_name")},
             uniqueConstraints = { @UniqueConstraint( columnNames = { "plan_name" } ) })
-@SequenceGenerator(name = "Plans_monetary_plan_id_seq", initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name = "Plans_monetary_plan_id_seq", initialValue = 100, allocationSize = 1)
 public class Plan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Plans_monetary_plan_id_seq")

@@ -3,13 +3,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import pe.edu.upc.startupinvest.model.entities.Plan;
 import pe.edu.upc.startupinvest.model.repository.PlanRepository;
-
+@Named
+@ApplicationScoped
 public class PlanRepositoryImpl  implements PlanRepository{
 	@PersistenceContext(unitName = "startupinvestPU")
 	private EntityManager entityManager;
@@ -29,15 +32,15 @@ public class PlanRepositoryImpl  implements PlanRepository{
 
 	@Override
 	public List<Plan> findAll() throws Exception {
-		String jpql = "SELECT plans FROM Plans plans";	
+		String jpql = "SELECT plans FROM Plan plans";	
 		return findAll(Plan.class, jpql);
 	}
 
 
 	@Override
-	public List<Plan> findPlanByName(String name) {
+	public List<Plan> findByName(String name) {
 		List<Plan> entities = new ArrayList<Plan>();
-		String jpql = "SELECT monetaryUnits FROM MonetaryUnits monetaryUnits where name='"+name+"'";	
+		String jpql = "SELECT plans FROM Plan plans where plans.name LIKE '%" + name + "%'";	
 		TypedQuery<Plan> typedQuery = getEntityManager().createQuery(jpql, Plan.class);
 		// Getting result list
 		entities = typedQuery.getResultList();		
