@@ -1,5 +1,6 @@
 package pe.edu.upc.startupinvest.model.repository.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import pe.edu.upc.startupinvest.model.entities.Startup;
 import pe.edu.upc.startupinvest.model.repository.StartupRepository;
@@ -32,7 +34,7 @@ public class StartupRepositoryImpl implements StartupRepository {
 
 	@Override
 	public List<Startup> findAll() throws Exception {
-		String jpql = "SELECT startups FROM Startups startups";
+		String jpql = "SELECT startups FROM Startup startups";
 		return findAll(Startup.class, jpql);
 	}
 
@@ -69,5 +71,20 @@ public class StartupRepositoryImpl implements StartupRepository {
 				+ "on investorhistories.investment_request_id = investmentrequests.investment_request_id\r\n"
 				+ "group by startups.startup_id,investmentrequests.investment_request_id\r\n" + "limit 6";
 		return findAll(Startup.class, jpql);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Startup> list() {
+		List<Startup> lista = new ArrayList<Startup>();
+		try {
+
+			Query q = entityManager.createQuery("from Startup startups");
+			lista = (List<Startup>) q.getResultList();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return lista;
 	}
 }

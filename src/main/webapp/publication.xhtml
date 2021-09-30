@@ -1,0 +1,250 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<div class="title">
+		<h1>¡StartUp Invest te da la bienvenida Administrador!</h1>
+	</div>
+	<div class="container">
+		<h2>Publicaciones de Startups</h2>
+		<h:form>
+			<div class="card">
+				<p:growl id="messages" showDetail="true" />
+
+				<p:dataTable id="publicationDataTable"
+					widgetVar="publicationDataTableWidget" var="publication"
+					value="#{publicationView.publications}"
+					selection="#{publicationView.publicationsSelected}" reflow="true"
+					rowKey="#{publication.id}" paginator="true"
+					paginatorPosition="bottom" rows="3" sortMode="single"
+					allowUnsorting="true">
+
+					<f:facet name="header">
+						<div class="table-header">
+							<span style="font-weight: bold">PUBLICATIONS</span> <span
+								class="filter-container ui-input-icon-left"> <i
+								class="pi pi-search"></i> <p:inputText id="globalSearch"
+									value="#{publicationView.publicationSearch.name}"
+									placeholder="Search" />
+							</span>
+							<p:commandButton value="Search" icon="pi pi-check"
+								actionListener="#{publicationView.searchPublication}"
+								update="publicationDataTable" process="globalSearch @this" />
+							<p:commandButton value="Clean" icon="pi pi-check"
+								actionListener="#{publicationView.getAllPublication}"
+								update="publicationDataTable" process="@this" />
+
+						</div>
+					</f:facet>
+
+					<p:column selectionMode="Multiple"
+						style="width:16px;text-align:center" />
+
+					<p:column headerText="Id" sortBy="#{publication.id}">
+						<h:outputText value="#{publication.id}" />
+					</p:column>
+					<p:column headerText="Name" sortBy="#{publication.name}">
+						<h:outputText value="#{publication.name}" />
+					</p:column>
+					<p:column headerText="Date" sortBy="#{publication.date}">
+						<h:outputText value="#{publication.date}" />
+					</p:column>
+					<p:column headerText="Description"
+						sortBy="#{publication.description}">
+						<h:outputText value="#{publication.description}" />
+					</p:column>
+					<p:column headerText="Startup" sortBy="#{publication.startup.name}">
+						<h:outputText value="#{publication.startup.name}" />
+					</p:column>
+					<p:column headerText="Image" sortBy="#{publication.image}">
+						<h:outputText value="#{publication.image}" />
+					</p:column>
+					<p:column headerText="Url" sortBy="#{publication.url}">
+						<h:outputText value="#{publication.url}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton icon="pi pi-pencil"
+							oncomplete="PF('publicationDialog').show()"
+							styleClass="edit-button rounded-button ui-button-success"
+							update="@form:publication-content" process="@this">
+							<f:setPropertyActionListener value="#{publication}"
+								target="#{publicationView.publicationSelected}" />
+							<p:resetInput target="@form:publication-content" />
+						</p:commandButton>
+						<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
+							styleClass="rounded-button ui-button-danger" process="@this"
+							oncomplete="PF('deleteDialog').show()">
+							<f:setPropertyActionListener value="#{publication}"
+								target="#{publicationView.publicationSelected}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:ajax event="rowSelectCheckbox"
+						update="publication-button-delete publication-button-edit " />
+					<p:ajax event="rowUnselectCheckbox"
+						update="publication-button-delete publication-button-edit" />
+					<p:ajax event="toggleSelect"
+						update="publication-button-delete publication-button-edit" />
+
+					<f:facet name="footer">
+						<p:commandButton process="publicationDataTable" value="New"
+							icon="pi pi-check"
+							actionListener="#{publicationView.createNewPublication}"
+							update="@form:publication-content"
+							oncomplete="PF('publicationDialog').show()"
+							styleClass="ui-button-raised ui-button-success" />
+
+						<p:commandButton id="publication-button-edit"
+							process="publicationDataTable" value="Edit" icon="pi pi-check"
+							actionListener="#{publicationView.editPublicationSelected}"
+							update="@form:publication-content"
+							oncomplete="PF('publicationDialog').show()"
+							styleClass="ui-button-raised ui-button-help"
+							disabled="#{!publicationView.hasPublicationsSelected()}" />
+
+						<p:commandButton id="publication-button-delete"
+							process="publicationDataTable" value="Delete" icon="pi pi-check"
+							oncomplete="PF('publicationDialog').show()"
+							styleClass="ui-button-raised ui-button-danger"
+							disabled="#{!publicationView.hasPublicationsSelected()}"
+							update="publicationDataTable" />
+					</f:facet>
+				</p:dataTable>
+			</div>
+			<p:dialog header="Publication" widgetVar="publicationDialog"
+				modal="true" showEffect="fade" minHeight="300" width="300"
+				responsive="true">
+				<p:outputPanel id="publication-content" class="ui-fluid">
+					<div class="p-field">
+						<p:outputLabel for="name">Publication Name</p:outputLabel>
+						<p:inputText id="name"
+							value="#{publicationView.publicationSelected.name}"
+							required="true" />
+					</div>
+					<div>
+						<p:outputLabel for="date" value="Date Picker" />
+						<p:calendar id="date"
+							value="#{publicationView.publicationSelected.date}" mode="popup" />
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="description">Publication Description</p:outputLabel>
+						<p:inputText id="description"
+							value="#{publicationView.publicationSelected.description}"
+							required="true" />
+					</div>
+					<div class="p-field p-col-12 p-md-4">
+						<h:outputText value="Startup:" />
+						<p:outputLabel for="cboStartup" />
+						<p:selectOneMenu id="cboStartup"
+							value="#{publicationView.publicationSelected.startup}"
+							>
+							<f:selectItems value="#{publicationView.startups}"
+								var="startups" itemLabel="#{startups.name}" itemValue="#{startups}" />
+						</p:selectOneMenu>
+					</div>
+				</p:outputPanel>
+				<f:facet name="footer">
+					<p:commandButton value="Save" icon="pi pi-check"
+						actionListener="#{publicationView.savePublication}"
+						update="publication-content publicationDataTable"
+						process="publication-content @this" />
+					<p:commandButton value="Cancel" icon="pi pi-times"
+						onclick="PF('publicationDialog').hide()"
+						class="ui-button-secondary" />
+				</f:facet>
+			</p:dialog>
+			<p:confirmDialog id="prueba" widgetVar="deleteDialog"
+				showEffect="fade" width="300" message="Delete the item?"
+				header="Confirm" severity="warn">
+				<p:commandButton value="Yes" icon="pi pi-check"
+					actionListener="#{publicationView.deletePublication}"
+					process="@this" oncomplete="PF('deleteDialog').hide()"
+					update="publicationDataTable @form:messages" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteDialog').hide()" />
+			</p:confirmDialog>
+		</h:form>
+
+
+	</div>
+</h:body>
+
+<script type="text/javascript">
+    PrimeFaces.locales['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+        dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+        weekHeader: 'Semana',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Sólo hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        millisecondText: 'Milisegundo',
+        currentText: 'Fecha actual',
+        ampm: false,
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Día',
+        allDayText: 'Todo el día',
+        today: 'Hoy',
+        clear: 'Claro'
+    };
+    PrimeFaces.locales ['de'] = {
+        closeText: 'Schließen',
+        prevText: 'Zurück',
+        nextText: 'Weiter',
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+        weekHeader: 'Woche',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Nur Zeit',
+        timeText: 'Zeit',
+        hourText: 'Stunde',
+        minuteText: 'Minute',
+        secondText: 'Sekunde',
+        millisecondText: 'Millisekunde',
+        currentText: 'Aktuelles Datum',
+        ampm: false,
+        month: 'Monat',
+        week: 'Woche',
+        day: 'Tag',
+        allDayText: 'Ganzer Tag',
+        today: 'Heute',
+        clear: 'Löschen'
+    };
+</script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
+    }
+
+    //]]>
+</script>
+</html>

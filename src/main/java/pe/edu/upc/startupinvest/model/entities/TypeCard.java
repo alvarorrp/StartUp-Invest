@@ -17,12 +17,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
-
 @Entity
-@Table(name = "TypeCards",indexes = {@Index(columnList = "type_card_id", name = "typeCards_index_type_card_id"),
-		                             @Index(columnList = "type_card_name", name = "typeCards_index_type_card_name") },
-                uniqueConstraints = {@UniqueConstraint( columnNames = { "type_card_name" } ) })
+@Table(name = "TypeCards", indexes = { @Index(columnList = "type_card_id", name = "typeCards_index_type_card_id"),
+		@Index(columnList = "type_card_name", name = "typeCards_index_type_card_name") }, uniqueConstraints = {
+				@UniqueConstraint(columnNames = { "type_card_name" }) })
 @SequenceGenerator(name = "TypeCards_type_card_id_seq", initialValue = 1, allocationSize = 1)
 public class TypeCard {
 	@Id
@@ -30,25 +28,24 @@ public class TypeCard {
 	@Column(name = "type_card_id", length = 5, nullable = false)
 	private Integer id;
 
-	@Column(name="type_card_name",length=50,nullable=false)
+	@Column(name = "type_card_name", length = 50, nullable = false)
 	private String name;
-	
-	@Column(name="type_card_state",nullable=false)
+
+	@Column(name = "type_card_state", nullable = true)
 	private Boolean state;
-	
+
 	@OneToMany(mappedBy = "typeCard", fetch = FetchType.LAZY)
 	private List<InvestorHistory> investorHistories;
-	
+
 	@OneToMany(mappedBy = "typeCard", fetch = FetchType.LAZY)
 	private List<PlanHistory> plansHistory;
-	
+
 	@ManyToMany(mappedBy = "typeCards", fetch = FetchType.EAGER)
 	private Set<Investor> investors;
 
-	public TypeCard ()
-	{
-		 investorHistories=new ArrayList<InvestorHistory>();
-		 plansHistory= new ArrayList<PlanHistory>();	 
+	public TypeCard() {
+		investorHistories = new ArrayList<InvestorHistory>();
+		plansHistory = new ArrayList<PlanHistory>();
 	}
 
 	public Integer getId() {
@@ -98,7 +95,5 @@ public class TypeCard {
 	public void setInvestors(Set<Investor> investors) {
 		this.investors = investors;
 	}
-	
-	
-	
+
 }

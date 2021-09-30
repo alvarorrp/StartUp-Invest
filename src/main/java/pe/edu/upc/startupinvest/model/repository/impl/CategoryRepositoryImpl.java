@@ -31,20 +31,21 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
 	@Override
 	public List<Category> findAll() throws Exception {
-		String jpql = "SELECT categories FROM Categories categories";
+		String jpql = "SELECT categories FROM Category categories";
 		return findAll(Category.class, jpql);
 	}
 
 	@Override
 	public List<Category> findByName(String name) throws Exception {
 
-		String jpql = "SELECT categories FROM Categories categories where categories.category_name='" + name + "'";
+		String jpql = "SELECT categories FROM Category categories where categories.name LIKE '%" + name + "%'";
+		System.out.println(jpql);
 		return findAll(Category.class, jpql);
 	}
 
 	@Override
 	public List<Category> findByState(boolean state) throws Exception {
-		String jpql = "select categories from Categories categories where categories.category_state =" + state;
+		String jpql = "select categories from Categories categories where categories.state =" + state;
 		return findAll(Category.class, jpql);
 	}
 

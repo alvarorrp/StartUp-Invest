@@ -9,7 +9,6 @@ import javax.inject.Named;
 
 import pe.edu.upc.startupinvest.model.entities.Category;
 import pe.edu.upc.startupinvest.model.repository.JpaRepository;
-import pe.edu.upc.startupinvest.model.repository.impl.CategoryRepositoryImpl;
 import pe.edu.upc.startupinvest.model.repository.CategoryRepository;
 import pe.edu.upc.startupinvest.service.crud.CategoryService;
 

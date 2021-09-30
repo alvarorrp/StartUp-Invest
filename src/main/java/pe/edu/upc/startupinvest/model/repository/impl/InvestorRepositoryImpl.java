@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import pe.edu.upc.startupinvest.model.entities.Investor;
-import pe.edu.upc.startupinvest.model.entities.Startup;
 import pe.edu.upc.startupinvest.model.repository.InvestorRepository;
 public class InvestorRepositoryImpl implements InvestorRepository{
 	@PersistenceContext(unitName = "startupinvestPU")
@@ -27,7 +26,7 @@ public class InvestorRepositoryImpl implements InvestorRepository{
 
 	@Override
 	public List<Investor> findAll() throws Exception {
-		String jpql = "SELECT investors FROM Investors investors";	
+		String jpql = "SELECT investors FROM Investor investors";	
 		return findAll(Investor.class, jpql);
 	}
 	

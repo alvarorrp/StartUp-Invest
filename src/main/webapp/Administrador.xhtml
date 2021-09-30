@@ -12,511 +12,124 @@
 		<h1>¡StartUp Invest te da la bienvenida Administrador!</h1>
 	</div>
 	<div class="container">
-		<p:divider>
 			<h2>Categorías de Startups</h2>
 			<h:form>
-				<p:dataTable var="Category" value="#{categoryView.categories}">
-					<p:column headerText="Id">
-						<h:outputText value="#{Category.id}" />
-					</p:column>
-					<p:column headerText="Name">
-						<h:outputText value="#{Category.name}" />
-					</p:column>
-				</p:dataTable>
+			<div class="card">
+			<p:growl id="messages" showDetail="true" />
 
-			</h:form>
+			<p:dataTable id="categoryDataTable" widgetVar="categoryDataTableWidget"
+				var="category" value="#{categoryView.categories}"
+				selection="#{categoryView.categoriesSelected}" reflow="true"
+				rowKey="#{category.id}" paginator="true" paginatorPosition="bottom"
+				rows="3" sortMode="single" allowUnsorting="true">
 
+				<f:facet name="header">
+					<div class="table-header">
+						<span style="font-weight: bold">CATEGORIES</span> <span
+							class="filter-container ui-input-icon-left"> <i
+							class="pi pi-search"></i> <p:inputText id="globalSearch"
+								value="#{categoryView.categorySearch.name}" placeholder="Search" />
+						</span>
+						<p:commandButton value="Search" icon="pi pi-check"
+							actionListener="#{categoryView.searchCategory}"
+							update="categoryDataTable" process="globalSearch @this" />
+						<p:commandButton value="Clean" icon="pi pi-check"
+							actionListener="#{categoryView.getAllCategory}"
+							update="categoryDataTable" process="@this" />
 
+					</div>
+				</f:facet>
 
+				<p:column selectionMode="Multiple"
+					style="width:16px;text-align:center" />
 
+				<p:column headerText="Id" sortBy="#{category.id}">
+					<h:outputText value="#{category.id}" />
+				</p:column>
+				<p:column headerText="Name" sortBy="#{category.name}">
+					<h:outputText value="#{category.name}" />
+				</p:column>
 
+				<p:column>
+					<p:commandButton icon="pi pi-pencil"
+						oncomplete="PF('categoryDialog').show()"
+						styleClass="edit-button rounded-button ui-button-success"
+						update="@form:category-content" process="@this">
+						<f:setPropertyActionListener value="#{category}"
+							target="#{categoryView.categorySelected}" />
+						<p:resetInput target="@form:category-content" />
+					</p:commandButton>
+					<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
+						styleClass="rounded-button ui-button-danger" process="@this"
+						oncomplete="PF('deleteDialog').show()">
+						<f:setPropertyActionListener value="#{category}"
+							target="#{categoryView.categorySelected}" />
+					</p:commandButton>
+				</p:column>
 
+				<p:ajax event="rowSelectCheckbox"
+					update="category-button-delete category-button-edit " />
+				<p:ajax event="rowUnselectCheckbox"
+					update="category-button-delete category-button-edit" />
+				<p:ajax event="toggleSelect"
+					update="category-button-delete category-button-edit" />
 
-			<h:form>
-				<div class="card">
-					<p:growl id="messages" showDetail="true" />
+				<f:facet name="footer">
+					<p:commandButton process="categoryDataTable" value="New"
+						icon="pi pi-check" actionListener="#{categoryView.createNewCategory}"
+						update="@form:category-content"
+						oncomplete="PF('categoryDialog').show()"
+						styleClass="ui-button-raised ui-button-success" />
 
-					<p:dataTable id="regionDataTable" widgetVar="regionDataTableWidget"
-						var="category" value="#{categoryView.categories}"
-						selection="#{regionView.regionsSelected}" reflow="true"
-						rowKey="#{region.id}" paginator="true" paginatorPosition="bottom"
-						rows="3" sortMode="single" allowUnsorting="true">
+					<p:commandButton id="category-button-edit" process="categoryDataTable"
+						value="Edit" icon="pi pi-check"
+						actionListener="#{categoryView.editCategorySelected}"
+						update="@form:category-content"
+						oncomplete="PF('categoryDialog').show()"
+						styleClass="ui-button-raised ui-button-help"
+						disabled="#{!categoryView.hasCategoriesSelected()}" />
 
-						<f:facet name="header">
-							<div class="table-header">
-								<span style="font-weight: bold">Categorías </span> <span
-									class="filter-container ui-input-icon-left"> <i
-									class="pi pi-search"></i> <p:inputText id="globalSearch"
-										value="#{regionView.regionSearch.name}" placeholder="Search" />
-								</span>
-								<p:commandButton value="Search" icon="pi pi-check"
-									style="margin-left: 10px"
-									actionListener="#{regionView.searchRegion}"
-									update="regionDataTable" process="globalSearch @this" />
-
-								<p:commandButton value="Clean" icon="pi pi-check"
-									style="margin-left: 10px"
-									actionListener="#{regionView.getAllRegion}"
-									update="regionDataTable" process="@this" />
-							</div>
-						</f:facet>
-
-						<!-- Columnas del datatable -->
-
-						<p:column selectionMode="Multiple"
-							style="width:16px;text-align:center" />
-
-						<p:column headerText="Id" sortBy="#{category.id}">
-							<h:outputText value="#{category.id}" />
-						</p:column>
-						<p:column headerText="Name" sortBy="#{category.name}">
-							<h:outputText value="#{category.name}" />
-						</p:column>
-
-						<p:column>
-							<p:commandButton icon="pi pi-pencil"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="edit-button rounded-button ui-button-success"
-								update="@form:region-content" process="@this">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-								<p:resetInput target="@form:region-content" />
-							</p:commandButton>
-							<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
-								styleClass="rounded-button ui-button-danger" process="@this"
-								oncomplete="PF('deleteDialog').show()">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-							</p:commandButton>
-						</p:column>
-
-						<p:ajax event="rowSelectCheckbox"
-							update="region-button-delete region-button-edit " />
-						<p:ajax event="rowUnselectCheckbox"
-							update="region-button-delete region-button-edit" />
-						<p:ajax event="toggleSelect"
-							update="region-button-delete region-button-edit" />
-
-						<f:facet name="footer">
-							<p:commandButton process="regionDataTable" value="New"
-								icon="pi pi-check" actionListener="#{regionView.createNew}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-success" />
-
-							<p:commandButton id="region-button-edit"
-								process="regionDataTable" value="Edit" icon="pi pi-check"
-								actionListener="#{regionView.editRegionSelected}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-help"
-								disabled="#{!regionView.hasRegionSelected()}" />
-
-							<p:commandButton id="region-button-delete"
-								process="regionDataTable" value="Delete" icon="pi pi-check"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-danger"
-								disabled="#{!regionView.hasRegionsSelected()}"
-								update="regionDataTable" />
-						</f:facet>
-					</p:dataTable>
+					<p:commandButton id="category-button-delete"
+						process="categoryDataTable" value="Delete" icon="pi pi-check"
+						oncomplete="PF('categoryDialog').show()"
+						styleClass="ui-button-raised ui-button-danger"
+						disabled="#{!categoryView.hasCategoriesSelected()}"
+						update="categoryDataTable" />
+				</f:facet>
+			</p:dataTable>
+		</div>
+		<p:dialog header="Category" widgetVar="categoryDialog" modal="true"
+			showEffect="fade" minHeight="300" width="300" responsive="true">
+			<p:outputPanel id="category-content" class="ui-fluid">
+				<div class="p-field">
+					<p:outputLabel for="name">Name</p:outputLabel>
+					<p:inputText id="name" value="#{categoryView.categorySelected.name}"
+						required="true" />
 				</div>
-				<p:dialog header="Region" widgetVar="regionDialog" modal="true"
-					showEffect="fade" minHeight="300" width="300" responsive="true">
-					<p:outputPanel id="region-content" class="ui-fluid">
-						<div class="p-field">
-							<p:outputLabel for="name">Name</p:outputLabel>
-							<p:inputText id="name" value="#{regionView.regionSelected.name}"
-								required="true" />
-						</div>
-					</p:outputPanel>
-					<f:facet name="footer">
-						<p:commandButton value="Save" icon="pi pi-check"
-							actionListener="#{regionView.saveRegion}"
-							update="region-content regionDataTable"
-							process="region-content @this" />
-						<p:commandButton value="Cancel" icon="pi pi-times"
-							onclick="PF('regionDialog').hide()" class="ui-button-secondary" />
-					</f:facet>
-				</p:dialog>
-				<p:confirmDialog id="prueba" widgetVar="deleteDialog"
-					showEffect="fade" width="300" message="Delete the item?"
-					header="Confirm" severity="warn">
-					<p:commandButton value="Yes" icon="pi pi-check"
-						actionListener="#{regionView.deleteRegion}" process="@this"
-						oncomplete="PF('deleteDialog').hide()"
-						update="regionDataTable @form:messages" />
-					<p:commandButton value="No" type="button"
-						styleClass="ui-button-secondary" icon="pi pi-times"
-						onclick="PF('deleteDialog').hide()" />
-				</p:confirmDialog>
+			</p:outputPanel>
+			<f:facet name="footer">
+				<p:commandButton value="Save" icon="pi pi-check"
+					actionListener="#{categoryView.saveCategory}"
+					update="category-content categoryDataTable"
+					process="category-content @this" />
+				<p:commandButton value="Cancel" icon="pi pi-times"
+					onclick="PF('categoryDialog').hide()" class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+		<p:confirmDialog id="prueba" widgetVar="deleteDialog"
+			showEffect="fade" width="300" message="Delete the item?"
+			header="Confirm" severity="warn">
+			<p:commandButton value="Yes" icon="pi pi-check"
+				actionListener="#{categoryView.deleteCategory}" process="@this"
+				oncomplete="PF('deleteDialog').hide()"
+				update="categoryDataTable @form:messages" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-button-secondary" icon="pi pi-times"
+				onclick="PF('deleteDialog').hide()" />
+		</p:confirmDialog>
 			</h:form>
 
-
-		</p:divider>
-
-		<p:divider>
-			<h2>Tipos de Inversión</h2>
-
-
-			<h:form>
-				<div class="card">
-					<p:growl id="messages" showDetail="true" />
-
-					<p:dataTable id="regionDataTable" widgetVar="regionDataTableWidget"
-						var="region" value="#{regionView.regions}"
-						selection="#{regionView.regionsSelected}" reflow="true"
-						rowKey="#{region.id}" paginator="true" paginatorPosition="bottom"
-						rows="3" sortMode="single" allowUnsorting="true">
-
-						<f:facet name="header">
-							<div class="table-header">
-								<span style="font-weight: bold">REGIONS</span> <span
-									class="filter-container ui-input-icon-left"> <i
-									class="pi pi-search"></i> <p:inputText id="globalSearch"
-										value="#{regionView.regionSearch.name}" placeholder="Search" />
-								</span>
-								<p:commandButton value="Search" icon="pi pi-check"
-									actionListener="#{regionView.searchRegion}"
-									update="regionDataTable" process="globalSearch @this" />
-								<p:commandButton value="Clean" icon="pi pi-check"
-									actionListener="#{regionView.getAllRegion}"
-									update="regionDataTable" process="@this" />
-
-							</div>
-						</f:facet>
-
-						<p:column selectionMode="Multiple"
-							style="width:16px;text-align:center" />
-
-						<p:column headerText="Id" sortBy="#{region.id}">
-							<h:outputText value="#{region.id}" />
-						</p:column>
-						<p:column headerText="Name" sortBy="#{region.name}">
-							<h:outputText value="#{region.name}" />
-						</p:column>
-
-						<p:column>
-							<p:commandButton icon="pi pi-pencil"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="edit-button rounded-button ui-button-success"
-								update="@form:region-content" process="@this">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-								<p:resetInput target="@form:region-content" />
-							</p:commandButton>
-							<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
-								styleClass="rounded-button ui-button-danger" process="@this"
-								oncomplete="PF('deleteDialog').show()">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-							</p:commandButton>
-						</p:column>
-
-						<p:ajax event="rowSelectCheckbox"
-							update="region-button-delete region-button-edit " />
-						<p:ajax event="rowUnselectCheckbox"
-							update="region-button-delete region-button-edit" />
-						<p:ajax event="toggleSelect"
-							update="region-button-delete region-button-edit" />
-
-						<f:facet name="footer">
-							<p:commandButton process="regionDataTable" value="New"
-								icon="pi pi-check" actionListener="#{regionView.createNew}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-success" />
-
-							<p:commandButton id="region-button-edit"
-								process="regionDataTable" value="Edit" icon="pi pi-check"
-								actionListener="#{regionView.editRegionSelected}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-help"
-								disabled="#{!regionView.hasRegionSelected()}" />
-
-							<p:commandButton id="region-button-delete"
-								process="regionDataTable" value="Delete" icon="pi pi-check"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-danger"
-								disabled="#{!regionView.hasRegionsSelected()}"
-								update="regionDataTable" />
-						</f:facet>
-					</p:dataTable>
-				</div>
-				<p:dialog header="Region" widgetVar="regionDialog" modal="true"
-					showEffect="fade" minHeight="300" width="300" responsive="true">
-					<p:outputPanel id="region-content" class="ui-fluid">
-						<div class="p-field">
-							<p:outputLabel for="name">Name</p:outputLabel>
-							<p:inputText id="name" value="#{regionView.regionSelected.name}"
-								required="true" />
-						</div>
-					</p:outputPanel>
-					<f:facet name="footer">
-						<p:commandButton value="Save" icon="pi pi-check"
-							actionListener="#{regionView.saveRegion}"
-							update="region-content regionDataTable"
-							process="region-content @this" />
-						<p:commandButton value="Cancel" icon="pi pi-times"
-							onclick="PF('regionDialog').hide()" class="ui-button-secondary" />
-					</f:facet>
-				</p:dialog>
-				<p:confirmDialog id="prueba" widgetVar="deleteDialog"
-					showEffect="fade" width="300" message="Delete the item?"
-					header="Confirm" severity="warn">
-					<p:commandButton value="Yes" icon="pi pi-check"
-						actionListener="#{regionView.deleteRegion}" process="@this"
-						oncomplete="PF('deleteDialog').hide()"
-						update="regionDataTable @form:messages" />
-					<p:commandButton value="No" type="button"
-						styleClass="ui-button-secondary" icon="pi pi-times"
-						onclick="PF('deleteDialog').hide()" />
-				</p:confirmDialog>
-			</h:form>
-		</p:divider>
-
-		<p:divider>
-			<h2>Planes</h2>
-
-			<h:form>
-				<div class="card">
-					<p:growl id="messages" showDetail="true" />
-
-					<p:dataTable id="regionDataTable" widgetVar="regionDataTableWidget"
-						var="region" value="#{regionView.regions}"
-						selection="#{regionView.regionsSelected}" reflow="true"
-						rowKey="#{region.id}" paginator="true" paginatorPosition="bottom"
-						rows="3" sortMode="single" allowUnsorting="true">
-
-						<f:facet name="header">
-							<div class="table-header">
-								<span style="font-weight: bold">REGIONS</span> <span
-									class="filter-container ui-input-icon-left"> <i
-									class="pi pi-search"></i> <p:inputText id="globalSearch"
-										value="#{regionView.regionSearch.name}" placeholder="Search" />
-								</span>
-								<p:commandButton value="Search" icon="pi pi-check"
-									actionListener="#{regionView.searchRegion}"
-									update="regionDataTable" process="globalSearch @this" />
-								<p:commandButton value="Clean" icon="pi pi-check"
-									actionListener="#{regionView.getAllRegion}"
-									update="regionDataTable" process="@this" />
-
-							</div>
-						</f:facet>
-
-						<p:column selectionMode="Multiple"
-							style="width:16px;text-align:center" />
-
-						<p:column headerText="Id" sortBy="#{region.id}">
-							<h:outputText value="#{region.id}" />
-						</p:column>
-						<p:column headerText="Name" sortBy="#{region.name}">
-							<h:outputText value="#{region.name}" />
-						</p:column>
-
-						<p:column>
-							<p:commandButton icon="pi pi-pencil"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="edit-button rounded-button ui-button-success"
-								update="@form:region-content" process="@this">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-								<p:resetInput target="@form:region-content" />
-							</p:commandButton>
-							<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
-								styleClass="rounded-button ui-button-danger" process="@this"
-								oncomplete="PF('deleteDialog').show()">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-							</p:commandButton>
-						</p:column>
-
-						<p:ajax event="rowSelectCheckbox"
-							update="region-button-delete region-button-edit " />
-						<p:ajax event="rowUnselectCheckbox"
-							update="region-button-delete region-button-edit" />
-						<p:ajax event="toggleSelect"
-							update="region-button-delete region-button-edit" />
-
-						<f:facet name="footer">
-							<p:commandButton process="regionDataTable" value="New"
-								icon="pi pi-check" actionListener="#{regionView.createNew}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-success" />
-
-							<p:commandButton id="region-button-edit"
-								process="regionDataTable" value="Edit" icon="pi pi-check"
-								actionListener="#{regionView.editRegionSelected}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-help"
-								disabled="#{!regionView.hasRegionSelected()}" />
-
-							<p:commandButton id="region-button-delete"
-								process="regionDataTable" value="Delete" icon="pi pi-check"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-danger"
-								disabled="#{!regionView.hasRegionsSelected()}"
-								update="regionDataTable" />
-						</f:facet>
-					</p:dataTable>
-				</div>
-				<p:dialog header="Region" widgetVar="regionDialog" modal="true"
-					showEffect="fade" minHeight="300" width="300" responsive="true">
-					<p:outputPanel id="region-content" class="ui-fluid">
-						<div class="p-field">
-							<p:outputLabel for="name">Name</p:outputLabel>
-							<p:inputText id="name" value="#{regionView.regionSelected.name}"
-								required="true" />
-						</div>
-					</p:outputPanel>
-					<f:facet name="footer">
-						<p:commandButton value="Save" icon="pi pi-check"
-							actionListener="#{regionView.saveRegion}"
-							update="region-content regionDataTable"
-							process="region-content @this" />
-						<p:commandButton value="Cancel" icon="pi pi-times"
-							onclick="PF('regionDialog').hide()" class="ui-button-secondary" />
-					</f:facet>
-				</p:dialog>
-				<p:confirmDialog id="prueba" widgetVar="deleteDialog"
-					showEffect="fade" width="300" message="Delete the item?"
-					header="Confirm" severity="warn">
-					<p:commandButton value="Yes" icon="pi pi-check"
-						actionListener="#{regionView.deleteRegion}" process="@this"
-						oncomplete="PF('deleteDialog').hide()"
-						update="regionDataTable @form:messages" />
-					<p:commandButton value="No" type="button"
-						styleClass="ui-button-secondary" icon="pi pi-times"
-						onclick="PF('deleteDialog').hide()" />
-				</p:confirmDialog>
-			</h:form>
-
-		</p:divider>
-
-		<p:divider>
-			<h2>Tipo de tarjetas</h2>
-
-			<h:form>
-				<div class="card">
-					<p:growl id="messages" showDetail="true" />
-
-					<p:dataTable id="regionDataTable" widgetVar="regionDataTableWidget"
-						var="region" value="#{regionView.regions}"
-						selection="#{regionView.regionsSelected}" reflow="true"
-						rowKey="#{region.id}" paginator="true" paginatorPosition="bottom"
-						rows="3" sortMode="single" allowUnsorting="true">
-
-						<f:facet name="header">
-							<div class="table-header">
-								<span style="font-weight: bold">REGIONS</span> <span
-									class="filter-container ui-input-icon-left"> <i
-									class="pi pi-search"></i> <p:inputText id="globalSearch"
-										value="#{regionView.regionSearch.name}" placeholder="Search" />
-								</span>
-								<p:commandButton value="Search" icon="pi pi-check"
-									actionListener="#{regionView.searchRegion}"
-									update="regionDataTable" process="globalSearch @this" />
-								<p:commandButton value="Clean" icon="pi pi-check"
-									actionListener="#{regionView.getAllRegion}"
-									update="regionDataTable" process="@this" />
-
-							</div>
-						</f:facet>
-
-						<p:column selectionMode="Multiple"
-							style="width:16px;text-align:center" />
-
-						<p:column headerText="Id" sortBy="#{region.id}">
-							<h:outputText value="#{region.id}" />
-						</p:column>
-						<p:column headerText="Name" sortBy="#{region.name}">
-							<h:outputText value="#{region.name}" />
-						</p:column>
-
-						<p:column>
-							<p:commandButton icon="pi pi-pencil"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="edit-button rounded-button ui-button-success"
-								update="@form:region-content" process="@this">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-								<p:resetInput target="@form:region-content" />
-							</p:commandButton>
-							<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
-								styleClass="rounded-button ui-button-danger" process="@this"
-								oncomplete="PF('deleteDialog').show()">
-								<f:setPropertyActionListener value="#{region}"
-									target="#{regionView.regionSelected}" />
-							</p:commandButton>
-						</p:column>
-
-						<p:ajax event="rowSelectCheckbox"
-							update="region-button-delete region-button-edit " />
-						<p:ajax event="rowUnselectCheckbox"
-							update="region-button-delete region-button-edit" />
-						<p:ajax event="toggleSelect"
-							update="region-button-delete region-button-edit" />
-
-						<f:facet name="footer">
-							<p:commandButton process="regionDataTable" value="New"
-								icon="pi pi-check" actionListener="#{regionView.createNew}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-success" />
-
-							<p:commandButton id="region-button-edit"
-								process="regionDataTable" value="Edit" icon="pi pi-check"
-								actionListener="#{regionView.editRegionSelected}"
-								update="@form:region-content"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-help"
-								disabled="#{!regionView.hasRegionSelected()}" />
-
-							<p:commandButton id="region-button-delete"
-								process="regionDataTable" value="Delete" icon="pi pi-check"
-								oncomplete="PF('regionDialog').show()"
-								styleClass="ui-button-raised ui-button-danger"
-								disabled="#{!regionView.hasRegionsSelected()}"
-								update="regionDataTable" />
-						</f:facet>
-					</p:dataTable>
-				</div>
-				<p:dialog header="Region" widgetVar="regionDialog" modal="true"
-					showEffect="fade" minHeight="300" width="300" responsive="true">
-					<p:outputPanel id="region-content" class="ui-fluid">
-						<div class="p-field">
-							<p:outputLabel for="name">Name</p:outputLabel>
-							<p:inputText id="name" value="#{regionView.regionSelected.name}"
-								required="true" />
-						</div>
-					</p:outputPanel>
-					<f:facet name="footer">
-						<p:commandButton value="Save" icon="pi pi-check"
-							actionListener="#{regionView.saveRegion}"
-							update="region-content regionDataTable"
-							process="region-content @this" />
-						<p:commandButton value="Cancel" icon="pi pi-times"
-							onclick="PF('regionDialog').hide()" class="ui-button-secondary" />
-					</f:facet>
-				</p:dialog>
-				<p:confirmDialog id="prueba" widgetVar="deleteDialog"
-					showEffect="fade" width="300" message="Delete the item?"
-					header="Confirm" severity="warn">
-					<p:commandButton value="Yes" icon="pi pi-check"
-						actionListener="#{regionView.deleteRegion}" process="@this"
-						oncomplete="PF('deleteDialog').hide()"
-						update="regionDataTable @form:messages" />
-					<p:commandButton value="No" type="button"
-						styleClass="ui-button-secondary" icon="pi pi-times"
-						onclick="PF('deleteDialog').hide()" />
-				</p:confirmDialog>
-			</h:form>
-
-		</p:divider>
+	
 	</div>
 </h:body>
 </html>

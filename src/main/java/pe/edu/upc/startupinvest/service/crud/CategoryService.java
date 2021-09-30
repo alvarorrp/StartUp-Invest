@@ -1,7 +1,6 @@
 package pe.edu.upc.startupinvest.service.crud;
 
 import pe.edu.upc.startupinvest.model.entities.Category;
-import pe.edu.upc.startupinvest.model.repository.CategoryRepository;
 
 import java.util.List;
 import java.util.Optional;

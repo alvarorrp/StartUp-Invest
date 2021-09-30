@@ -1,5 +1,6 @@
 package pe.edu.upc.startupinvest.service.crud;
 
+
 import pe.edu.upc.startupinvest.model.entities.Startup;
 
 import java.util.Date;
@@ -19,5 +20,7 @@ public interface StartupService extends CrudService<Startup, Integer> {
 	List <Startup> findByDateRecently() throws Exception;  
 	List <Startup> findByDateBetween(Date date1, Date date2) throws Exception;
 	List <Startup> findByPopular() throws Exception;
+	
+	List<Startup> list();
 
 }
