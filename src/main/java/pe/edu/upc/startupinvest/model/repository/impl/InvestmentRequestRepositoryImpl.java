@@ -1,6 +1,5 @@
 package pe.edu.upc.startupinvest.model.repository.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,12 +7,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
 
 import pe.edu.upc.startupinvest.model.entities.InvestmentRequest;
 import pe.edu.upc.startupinvest.model.repository.InvestmentRequestRepository;
-
 
 @Named
 @ApplicationScoped

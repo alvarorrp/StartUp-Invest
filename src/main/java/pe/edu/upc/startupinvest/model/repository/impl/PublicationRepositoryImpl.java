@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import pe.edu.upc.startupinvest.model.entities.Category;
 import pe.edu.upc.startupinvest.model.entities.Publication;
 import pe.edu.upc.startupinvest.model.repository.PublicationRepository;
 public class PublicationRepositoryImpl implements  PublicationRepository{

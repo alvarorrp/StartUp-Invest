@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import pe.edu.upc.startupinvest.model.entities.Investor;
-import pe.edu.upc.startupinvest.model.entities.Startup;
 import pe.edu.upc.startupinvest.model.repository.InvestorRepository;
 public class InvestorRepositoryImpl implements InvestorRepository{
 	@PersistenceContext(unitName = "startupinvestPU")
