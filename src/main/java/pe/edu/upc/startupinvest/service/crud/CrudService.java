@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
-
 import pe.edu.upc.startupinvest.model.repository.JpaRepository;
 
 public interface CrudService<T, ID> {
@@ -35,3 +34,4 @@ public interface CrudService<T, ID> {
 	}
 }
 
+ 

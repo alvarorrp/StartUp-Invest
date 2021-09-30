@@ -24,7 +24,8 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Startups", indexes = { @Index(columnList = "startup_id", name = "startups_index_startup_id"),
 		@Index(columnList = "startup_name", name = "startups_index_startup_name"),
-		@Index(columnList = "startup_state", name = "startups_index_startup_state") }, uniqueConstraints = {
+		@Index(columnList = "startup_state", name = "startups_index_startup_state"),
+        @Index(columnList = "startup_register_date", name = "startups_index_startup_register_date")}, uniqueConstraints = {
 				@UniqueConstraint(columnNames = { "startup_ruc" }) })
 @SequenceGenerator(name = "Startups_startup_id_seq", initialValue = 1, allocationSize = 1)
 public class Startup {
@@ -40,6 +41,9 @@ public class Startup {
 	@Column(name = "startup_name", length = 50, nullable = false)
 	private String name;
 
+	@Column(name = "startup_email", length = 50, nullable = false)
+	private String email;
+	
 	@Column(name = "startup_image", length = 500, nullable = true)
 	private String image;
 
@@ -53,6 +57,12 @@ public class Startup {
 	@Temporal(TemporalType.DATE)
 	private Date registerDate;
 
+	@Column(name = "startup_password", length = 500, nullable = false)
+	private String password;
+	
+	@Column(name = "startup_description", length = 400, nullable = false)
+	private String description;
+	
 	@OneToMany(mappedBy = "startup", fetch = FetchType.LAZY)
 	private List<Publication> publications;
 
@@ -71,20 +81,21 @@ public class Startup {
 		resources = new ArrayList<Resource>();
 		investmentRequests = new ArrayList<InvestmentRequest>();
 	}
-	
-	
 
-	public Startup(Integer id, Category category, String name, String image, Boolean state, String ruc,
-			Date registerDate, List<Publication> publications, List<PlanHistory> plansHistory, List<Resource> resources,
-			List<InvestmentRequest> investmentRequests) {
+	public Startup(Integer id, Category category, String name, String email, String image, Boolean state, String ruc,
+			Date registerDate, String password, String description, List<Publication> publications,
+			List<PlanHistory> plansHistory, List<Resource> resources, List<InvestmentRequest> investmentRequests) {
 		super();
 		this.id = id;
 		this.category = category;
 		this.name = name;
+		this.email = email;
 		this.image = image;
 		this.state = state;
 		this.ruc = ruc;
 		this.registerDate = registerDate;
+		this.password = password;
+		this.description = description;
 		this.publications = publications;
 		this.plansHistory = plansHistory;
 		this.resources = resources;
@@ -113,6 +124,14 @@ public class Startup {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getImage() {
@@ -147,6 +166,22 @@ public class Startup {
 		this.registerDate = registerDate;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public List<Publication> getPublications() {
 		return publications;
 	}
@@ -178,5 +213,5 @@ public class Startup {
 	public void setInvestmentRequests(List<InvestmentRequest> investmentRequests) {
 		this.investmentRequests = investmentRequests;
 	}
-
+	
 }

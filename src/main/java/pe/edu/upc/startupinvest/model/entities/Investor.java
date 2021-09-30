@@ -32,13 +32,25 @@ public class Investor {
 
 	@Column(name = "investor_name", length = 50, nullable = false)
 	private String name;
-
-	@Column(name = "investor_image", length = 500, nullable = false)
+	
+	@Column(name = "investor_dni", length = 8, nullable = false)
+	private String dni;
+	
+	@Column(name = "investor_lastname", length = 50, nullable = false)
+	private String lastname;
+	
+	@Column(name = "investor_email", length = 50, nullable = false)
+	private String email;
+	
+	@Column(name = "investor_image", length = 500, nullable = true)
 	private String image;
 
 	@Column(name = "investor_state", nullable = false)
 	private Boolean state;
 
+	@Column(name = "investor_password", length =500 , nullable = false)
+	private String password;
+	
 	@OneToMany(mappedBy = "investor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<InvestorHistory> investorHistories;
 
@@ -53,15 +65,19 @@ public class Investor {
 		investorHistories= new ArrayList<InvestorHistory>();
 		
 	}
-	
-	
-	public Investor(Integer id, String name, String image, Boolean state, List<InvestorHistory> investorHistories,
-			Set<TypeCard> typeCards) {
+
+
+	public Investor(Integer id, String name, String dni, String lastname, String email, String image, Boolean state,
+			String password, List<InvestorHistory> investorHistories, Set<TypeCard> typeCards) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.dni = dni;
+		this.lastname = lastname;
+		this.email = email;
 		this.image = image;
 		this.state = state;
+		this.password = password;
 		this.investorHistories = investorHistories;
 		this.typeCards = typeCards;
 	}
@@ -87,6 +103,36 @@ public class Investor {
 	}
 
 
+	public String getDni() {
+		return dni;
+	}
+
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+
+	public String getLastname() {
+		return lastname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 	public String getImage() {
 		return image;
 	}
@@ -104,6 +150,16 @@ public class Investor {
 
 	public void setState(Boolean state) {
 		this.state = state;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
@@ -125,4 +181,7 @@ public class Investor {
 	public void setTypeCards(Set<TypeCard> typeCards) {
 		this.typeCards = typeCards;
 	}
+	
+	
+	
 }

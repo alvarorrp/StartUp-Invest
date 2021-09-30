@@ -19,14 +19,13 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "Resources",indexes= {@Index(columnList = "resource_id", name = "resources_index_resource_id")})
 @SequenceGenerator(name = "Resources_resource_id_seq", initialValue = 1, allocationSize = 1)
-public class Resource {
-
+public class Resource { 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Resources_resource_id_seq")
 	@Column(name = "resource_id", length = 5, nullable = false)
 	private Integer id;
 
-	@Column(name = "resource_document", length = 5, nullable = false)
+	@Column(name = "resource_document", length = 5, nullable = true)
 	private Byte document;
 	
 	@ManyToOne(cascade = CascadeType.ALL)

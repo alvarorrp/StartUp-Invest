@@ -16,8 +16,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 @Entity
-@Table(name = "Publications",indexes= {@Index(columnList = "publication_id", name = "publications_index_publication_id")})
+@Table(name = "Publications", indexes = {
+		@Index(columnList = "publication_id", name = "publications_index_publication_id"),
+		@Index(columnList = "publication_name", name = "publications_index_publication_name") })
 @SequenceGenerator(name = "Publications_publication_id_seq", initialValue = 1, allocationSize = 1)
 public class Publication {
 	@Id
@@ -25,32 +28,30 @@ public class Publication {
 	@Column(name = "publication_id", length = 5, nullable = false)
 	private Integer id;
 
-	@Column(name="publication_name",length=100,nullable=false)
+	@Column(name = "publication_name", length = 100, nullable = false)
 	private String name;
-	
-	@Column(name="publication_date",nullable=false)
-	@Temporal(TemporalType.DATE)
+
+	@Column(name = "publication_date", nullable = false)
+	@Temporal(TemporalType.DATE)	
 	private Date date;
-	
-	@Column(name="publication_description",length=500,nullable=false)
+
+	@Column(name = "publication_description", length = 500, nullable = false)
 	private String description;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "startup_id", nullable = false)
+
+	@ManyToOne()
+	@JoinColumn(name = "startup_id")
 	private Startup startup;
-	
-	@Column(name="publication_image",length=500,nullable=true)
+
+	@Column(name = "publication_image", length = 500, nullable = true)
 	private String image;
-	
-	@Column(name="publication_url",length=500,nullable=true)
+
+	@Column(name = "publication_url", length = 500, nullable = true)
 	private String url;
 
-	
-public Publication() 
-{
-	
-}
-	
+	public Publication() {
+
+	}
+
 	public Publication(Integer id, String name, Date date, String description, Startup startup, String image,
 			String url) {
 		super();
@@ -118,6 +119,5 @@ public Publication()
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
-	
+
 }

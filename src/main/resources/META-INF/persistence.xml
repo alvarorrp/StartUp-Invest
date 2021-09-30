@@ -9,7 +9,6 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 	<class>pe.edu.upc.startupinvest.model.entities.InvestmentRequest</class>
 	<class>pe.edu.upc.startupinvest.model.entities.Investor</class>
 	<class>pe.edu.upc.startupinvest.model.entities.InvestorHistory</class>
-	<class>pe.edu.upc.startupinvest.model.entities.MonetaryUnit</class>
 	<class>pe.edu.upc.startupinvest.model.entities.Plan</class>
 	<class>pe.edu.upc.startupinvest.model.entities.PlanHistory</class>
 	<class>pe.edu.upc.startupinvest.model.entities.Publication</class>
@@ -19,8 +18,8 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 	<class>pe.edu.upc.startupinvest.model.entities.TypeInvestment</class>
 	<exclude-unlisted-classes>false</exclude-unlisted-classes>
 	<properties>
-	<property name="javax.persistence.schema-generation.database.action" 
-	value="drop-and-create"/>
+	<!-- update | drop-and-create -->
+	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 	</properties>
 	</persistence-unit>
 </persistence>

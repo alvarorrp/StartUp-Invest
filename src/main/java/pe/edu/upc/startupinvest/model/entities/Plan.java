@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,23 +33,17 @@ public class Plan {
 	@Column(name = "plan_amount", columnDefinition = "DECIMAL(12,2)", nullable = false)
 	private Double amount;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "monetary_unit_id", nullable = false)
-	private MonetaryUnit monetaryUnit;
-
-	@OneToMany(mappedBy = "plan", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "plan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<PlanHistory> plansHistory;
 
-	
 	public Plan() {
 		plansHistory=new ArrayList<PlanHistory>();
 	}
-	public Plan(Integer id, String name, Double amount, MonetaryUnit monetaryUnit, List<PlanHistory> plansHistory) {
+	public Plan(Integer id, String name, Double amount, List<PlanHistory> plansHistory) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
-		this.monetaryUnit = monetaryUnit;
 		this.plansHistory = plansHistory;
 	}
 
@@ -77,14 +69,6 @@ public class Plan {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}
-
-	public MonetaryUnit getMonetaryUnit() {
-		return monetaryUnit;
-	}
-
-	public void setMonetaryUnit(MonetaryUnit monetaryUnit) {
-		this.monetaryUnit = monetaryUnit;
 	}
 
 	public List<PlanHistory> getPlansHistory() {
