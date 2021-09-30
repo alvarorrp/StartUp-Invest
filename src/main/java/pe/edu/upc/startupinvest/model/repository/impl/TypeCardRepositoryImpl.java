@@ -26,7 +26,16 @@ public class TypeCardRepositoryImpl implements TypeCardRepository {
 		return entityManager;
 	}
 
-	/*AQUI VA EL CODIGO*/
+	@Override
+    public Optional<TypeCard> findById(Integer id) throws Exception {
+        return findById(id, TypeCard.class);
+    }
+
+    @Override
+    public List<TypeCard> findAll() throws Exception {
+        String jpql = "SELECT typeCards FROM TypeCard typeCards";
+        return findAll(TypeCard.class, jpql);
+    }
 
 	@Override
 	public List<TypeCard> findTypeCardByName(String name) throws Exception {
