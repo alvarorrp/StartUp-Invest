@@ -4,13 +4,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import pe.edu.upc.startupinvest.model.entities.Startup;
 import pe.edu.upc.startupinvest.model.repository.JpaRepository;
 import pe.edu.upc.startupinvest.model.repository.StartupRepository;
 import pe.edu.upc.startupinvest.service.crud.StartupService;
 
+@Named
+@ApplicationScoped
 public class StartupServiceImpl implements StartupService {
 
 	@Inject
@@ -55,6 +59,11 @@ public class StartupServiceImpl implements StartupService {
 	@Override
 	public List<Startup> findByPopular() throws Exception{
 		return startupRepository.findByPopular();
+	}
+
+	@Override
+	public List<Startup> list() {
+		return startupRepository.list();
 	}
 	
 }

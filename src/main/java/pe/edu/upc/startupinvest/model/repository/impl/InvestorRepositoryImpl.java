@@ -26,7 +26,7 @@ public class InvestorRepositoryImpl implements InvestorRepository{
 
 	@Override
 	public List<Investor> findAll() throws Exception {
-		String jpql = "SELECT investors FROM Investors investors";	
+		String jpql = "SELECT investors FROM Investor investors";	
 		return findAll(Investor.class, jpql);
 	}
 	

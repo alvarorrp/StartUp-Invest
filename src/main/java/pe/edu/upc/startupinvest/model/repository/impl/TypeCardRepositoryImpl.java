@@ -1,16 +1,21 @@
 package pe.edu.upc.startupinvest.model.repository.impl;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+
+
 
 import pe.edu.upc.startupinvest.model.entities.TypeCard;
 import pe.edu.upc.startupinvest.model.repository.TypeCardRepository;
 
+@Named
+@ApplicationScoped
 public class TypeCardRepositoryImpl implements TypeCardRepository {
 	@PersistenceContext(unitName = "startupinvestPU")
 	private EntityManager entityManager;
@@ -21,25 +26,14 @@ public class TypeCardRepositoryImpl implements TypeCardRepository {
 		return entityManager;
 	}
 
-	@Override
-	public Optional<TypeCard> findById(Integer id) throws Exception {
-		return findById(id, TypeCard.class);
-	}
+	/*AQUI VA EL CODIGO*/
 
 	@Override
-	public List<TypeCard> findAll() throws Exception {
-		String jpql = "SELECT typeCards FROM TypeCards typeCards";
+	public List<TypeCard> findTypeCardByName(String name) throws Exception {
+		String jpql = "SELECT typeCards FROM TypeCard typeCards where typeCards.name LIKE '%" + name + "%'";
+		System.out.println(jpql);
 		return findAll(TypeCard.class, jpql);
 	}
 
-	@Override
-	public List<TypeCard> findTypeCardByname(String name) {
-		String jpql = "SELECT typecards FROM TypeCards typecards where typecards.type_card_name ='"+name+"'";
-		List<TypeCard> entities = new ArrayList<TypeCard>();
-		// Execute Query
-		TypedQuery<TypeCard> typedQuery = getEntityManager().createQuery(jpql, TypeCard.class);
-		// Getting result list
-		entities = typedQuery.getResultList();		
-		return entities;
-	}
+	
 }

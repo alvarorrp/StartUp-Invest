@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<div class="title">
+		<h1>¡StartUp Invest te da la bienvenida Administrador!</h1>
+	</div>
+	<div class="container">
+		<h2>TypeCards de Startups</h2>
+		<h:form>
+			<div class="card">
+				<p:growl id="messages" showDetail="true" />
+
+				<p:dataTable id="typeCardDataTable"
+					widgetVar="typeCardDataTableWidget" var="typeCard"
+					value="#{typeCardView.typeCards}"
+					selection="#{typeCardView.typeCardsSelected}" reflow="true"
+					rowKey="#{typeCard.id}" paginator="true" paginatorPosition="bottom"
+					rows="3" sortMode="single" allowUnsorting="true">
+
+					<f:facet name="header">
+						<div class="table-header">
+							<span style="font-weight: bold">TYPECARDS</span> <span
+								class="filter-container ui-input-icon-left"> <i
+								class="pi pi-search"></i> <p:inputText id="globalSearch"
+									value="#{typeCardView.typeCardSearch.name}"
+									placeholder="Search" />
+							</span>
+							<p:commandButton value="Search" icon="pi pi-check"
+								actionListener="#{typeCardView.searchTypeCard}"
+								update="typeCardDataTable" process="globalSearch @this" />
+							<p:commandButton value="Clean" icon="pi pi-check"
+								actionListener="#{typeCardView.getAllTypeCard}"
+								update="typeCardDataTable" process="@this" />
+
+						</div>
+					</f:facet>
+
+					<p:column selectionMode="Multiple"
+						style="width:16px;text-align:center" />
+
+					<p:column headerText="Id" sortBy="#{typeCard.id}">
+						<h:outputText value="#{typeCard.id}" />
+					</p:column>
+					<p:column headerText="Name" sortBy="#{typeCard.name}">
+						<h:outputText value="#{typeCard.name}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton icon="pi pi-pencil"
+							oncomplete="PF('typeCardDialog').show()"
+							styleClass="edit-button rounded-button ui-button-success"
+							update="@form:typeCard-content" process="@this">
+							<f:setPropertyActionListener value="#{typeCard}"
+								target="#{typeCardView.typeCardSelected}" />
+							<p:resetInput target="@form:typeCard-content" />
+						</p:commandButton>
+						<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
+							styleClass="rounded-button ui-button-danger" process="@this"
+							oncomplete="PF('deleteDialog').show()">
+							<f:setPropertyActionListener value="#{typeCard}"
+								target="#{typeCardView.typeCardSelected}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:ajax event="rowSelectCheckbox"
+						update="typeCard-button-delete typeCard-button-edit " />
+					<p:ajax event="rowUnselectCheckbox"
+						update="typeCard-button-delete typeCard-button-edit" />
+					<p:ajax event="toggleSelect"
+						update="typeCard-button-delete typeCard-button-edit" />
+
+					<f:facet name="footer">
+						<p:commandButton process="typeCardDataTable" value="New"
+							icon="pi pi-check"
+							actionListener="#{typeCardView.createNewTypeCard}"
+							update="@form:typeCard-content"
+							oncomplete="PF('typeCardDialog').show()"
+							styleClass="ui-button-raised ui-button-success" />
+
+						<p:commandButton id="typeCard-button-edit"
+							process="typeCardDataTable" value="Edit" icon="pi pi-check"
+							actionListener="#{typeCardView.editTypeCardSelected}"
+							update="@form:typeCard-content"
+							oncomplete="PF('typeCardDialog').show()"
+							styleClass="ui-button-raised ui-button-help"
+							disabled="#{!typeCardView.hasTypeCardsSelected()}" />
+
+						<p:commandButton id="typeCard-button-delete"
+							process="typeCardDataTable" value="Delete" icon="pi pi-check"
+							oncomplete="PF('typeCardDialog').show()"
+							styleClass="ui-button-raised ui-button-danger"
+							disabled="#{!typeCardView.hasTypeCardsSelected()}"
+							update="typeCardDataTable" />
+					</f:facet>
+				</p:dataTable>
+			</div>
+			<p:dialog header="Type Card" widgetVar="typeCardDialog" modal="true"
+				showEffect="fade" minHeight="300" width="300" responsive="true">
+				<p:outputPanel id="typeCard-content" class="ui-fluid">
+					<div class="p-field">
+						<p:outputLabel for="name">TypeCard Number</p:outputLabel>
+						<p:inputText
+							onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+							id="name" value="#{typeCardView.typeCardSelected.name}"
+							required="true" />						
+					</div>
+				</p:outputPanel>
+				<f:facet name="footer">
+					<p:commandButton value="Save" icon="pi pi-check"
+						actionListener="#{typeCardView.saveTypeCard}"
+						update="typeCard-content typeCardDataTable"
+						process="typeCard-content @this" />
+					<p:commandButton value="Cancel" icon="pi pi-times"
+						onclick="PF('typeCardDialog').hide()" class="ui-button-secondary" />
+				</f:facet>
+			</p:dialog>
+			<p:confirmDialog id="prueba" widgetVar="deleteDialog"
+				showEffect="fade" width="300" message="Delete the item?"
+				header="Confirm" severity="warn">
+				<p:commandButton value="Yes" icon="pi pi-check"
+					actionListener="#{typeCardView.deleteTypeCard}" process="@this"
+					oncomplete="PF('deleteDialog').hide()"
+					update="typeCardDataTable @form:messages" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteDialog').hide()" />
+			</p:confirmDialog>
+		</h:form>
+
+
+	</div>
+</h:body>
+</html>

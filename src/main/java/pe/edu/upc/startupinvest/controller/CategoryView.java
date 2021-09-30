@@ -47,7 +47,17 @@ public class CategoryView implements Serializable {
 		return true;
 	}
 
+
 	public boolean hasCategorieSelected() {
+		if (categoriesSelected.isEmpty()) {
+            return false;
+        }
+        return true;
+	}
+
+	
+	public boolean hasCategorySelected() {
+
 		if (categoriesSelected.size() == 1) {
 			return true;
 		}

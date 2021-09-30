@@ -14,7 +14,8 @@ public interface StartupRepository extends JpaRepository<Startup, Integer> {
 
 	List<Startup> findByDateBetween(Date date1, Date date2) throws Exception; // Filtrar startups entre fechas de
 																				// registro
-
 	List<Startup> findByPopular() throws Exception; // Buscar Startups mas populares FALTA EL TOP
+	
+	public List<Startup> list();
 
 }
