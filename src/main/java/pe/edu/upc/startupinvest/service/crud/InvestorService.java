@@ -9,3 +9,4 @@ import javax.inject.Named;
 public interface InvestorService extends CrudService<Investor, Integer> {
 
 }
+ 
