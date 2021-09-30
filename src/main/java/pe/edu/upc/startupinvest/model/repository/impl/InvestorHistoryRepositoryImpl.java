@@ -1,11 +1,14 @@
 package pe.edu.upc.startupinvest.model.repository.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import pe.edu.upc.startupinvest.model.entities.Category;
 import pe.edu.upc.startupinvest.model.entities.InvestorHistory;
 import pe.edu.upc.startupinvest.model.repository.InvestorHistoryRepository;
 
@@ -31,4 +34,18 @@ public class InvestorHistoryRepositoryImpl implements InvestorHistoryRepository 
 		return findAll(InvestorHistory.class, jpql);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<InvestorHistory> list() {
+		List<InvestorHistory>lista =new ArrayList<InvestorHistory>();
+		try {
+			Query q=entityManager.createQuery("From InvestorHistory investorHistories");
+			lista=(List<InvestorHistory>) q.getResultList();
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return lista;
+	}
+	
 }

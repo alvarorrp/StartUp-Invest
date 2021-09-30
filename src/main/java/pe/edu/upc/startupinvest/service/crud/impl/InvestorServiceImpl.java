@@ -1,5 +1,7 @@
 package pe.edu.upc.startupinvest.service.crud.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import pe.edu.upc.startupinvest.model.entities.Investor;
@@ -17,4 +19,10 @@ public class InvestorServiceImpl implements InvestorService {
 		return investorRepository;
 	}
 
+	@Override
+	public List<Investor> list() {
+		// TODO Auto-generated method stub
+		return investorRepository.list();
+	}
+	
 }

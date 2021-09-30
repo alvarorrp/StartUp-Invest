@@ -57,4 +57,11 @@ public class StartupServiceImpl implements StartupService {
 		return startupRepository.findByPopular();
 	}
 	
+	@Override
+	public List<Startup> list() {
+		// TODO Auto-generated method stub
+		return startupRepository.list();
+	}
+	
+	
 }

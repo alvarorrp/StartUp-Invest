@@ -1,6 +1,9 @@
 package pe.edu.upc.startupinvest.service.crud;
 
 import pe.edu.upc.startupinvest.model.entities.InvestorHistory;
+
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -8,4 +11,6 @@ import javax.inject.Named;
 @ApplicationScoped
 public interface InvestorHistoryService extends CrudService<InvestorHistory, Integer> {
 
+	public List<InvestorHistory> list();
+	
 }

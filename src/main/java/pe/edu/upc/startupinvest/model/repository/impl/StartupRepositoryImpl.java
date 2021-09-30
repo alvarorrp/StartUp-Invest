@@ -1,5 +1,6 @@
 package pe.edu.upc.startupinvest.model.repository.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +9,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import pe.edu.upc.startupinvest.model.entities.Resource;
 import pe.edu.upc.startupinvest.model.entities.Startup;
 import pe.edu.upc.startupinvest.model.repository.StartupRepository;
 
@@ -70,4 +73,19 @@ public class StartupRepositoryImpl implements StartupRepository {
 				+ "group by startups.startup_id,investmentrequests.investment_request_id\r\n" + "limit 6";
 		return findAll(Startup.class, jpql);
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Startup> list() {
+		List<Startup>lista =new ArrayList<Startup>();
+		try {
+			Query q=entityManager.createQuery("From Startup startups");
+			lista=(List<Startup>) q.getResultList();
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return lista;
+	}
+	
+	
 }

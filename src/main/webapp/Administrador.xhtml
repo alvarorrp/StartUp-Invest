@@ -132,7 +132,7 @@
 			</h:form>
 
 	</div>
-	<h2>Categorías de Startups</h2>
+	<h2>Planes de Startups</h2>
 	
 	<div class="container">
 			<h2>Planes</h2>
@@ -265,6 +265,139 @@
 	</div>
 	
 	
+	
+	<h2>Tipos de inversiones</h2>
+	
+	
+	<div class="container">
+			<h2>Tipos de inversion</h2>
+			<h:form>
+			<div class="card">
+			<p:growl id="messages" showDetail="true" />
+
+			<p:dataTable id="typeInvestmentDataTable" widgetVar="typeInvestmentDataTableWidget"
+				var="typeInvestment" value="#{typeInvestmentView.typeInvestments}"
+				selection="#{typeInvestmentView.typeInvestmentsSelected}" reflow="true"
+				rowKey="#{typeInvestment.id}" paginator="true" paginatorPosition="bottom"
+				rows="3" sortMode="single" allowUnsorting="true">
+
+				<f:facet name="header">
+					<div class="table-header">
+						<span style="font-weight: bold">Tipos</span> <span
+							class="filter-container ui-input-icon-left"> <i
+							class="pi pi-search"></i> <p:inputText id="globalSearch"
+								value="#{typeInvestmentView.typeInvestmentSearch.name}" placeholder="Search" />
+						</span>
+						<p:commandButton value="Search" icon="pi pi-check"
+							actionListener="#{typeInvestmentView.searchTypeInvestment}"
+							update="typeInvestmentDataTable" process="globalSearch @this" />
+						<p:commandButton value="Clean" icon="pi pi-check"
+							actionListener="#{typeInvestmentView.getAllTypeInvestment}"
+							update="typeInvestmentDataTable" process="@this" />
+
+					</div>
+				</f:facet>
+
+				<p:column selectionMode="Multiple"
+					style="width:16px;text-align:center" />
+
+				<p:column headerText="Id" sortBy="#{typeInvestment.id}">
+					<h:outputText value="#{typeInvestment.id}" />
+				</p:column>
+				<p:column headerText="Name" sortBy="#{typeInvestment.name}">
+					<h:outputText value="#{typeInvestment.name}" />
+				</p:column>
+				
+                 <p:column headerText="Description" sortBy="#{typeInvestment.description}">
+					<h:outputText value="#{typeInvestment.description}" />
+				</p:column>
+
+				<p:column>
+					<p:commandButton icon="pi pi-pencil"
+						oncomplete="PF('typeInvestmentDialog').show()"
+						styleClass="edit-button rounded-button ui-button-success"
+						update="@form:typeInvestment-content" process="@this">
+						<f:setPropertyActionListener value="#{typeInvestment}"
+							target="#{typeInvestmentView.typeInvestmentSelected}" />
+						<p:resetInput target="@form:typeInvestment-content" />
+					</p:commandButton>
+					<p:commandButton icon="pi pi-trash" style="margin-left: 10px;"
+						styleClass="rounded-button ui-button-danger" process="@this"
+						oncomplete="PF('deleteDialog').show()">
+						<f:setPropertyActionListener value="#{typeInvestment}"
+							target="#{typeInvestmentView.typeInvestmentSelected}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:ajax event="rowSelectCheckbox"
+					update="typeInvestment-button-delete typeInvestment-button-edit " />
+				<p:ajax event="rowUnselectCheckbox"
+					update="typeInvestment-button-delete typeInvestment-button-edit" />
+				<p:ajax event="toggleSelect"
+					update="typeInvestment-button-delete typeInvestment-button-edit" />
+
+				<f:facet name="footer">
+					<p:commandButton process="typeInvestmentDataTable" value="New"
+						icon="pi pi-check" actionListener="#{typeInvestmentView.createNewTypeInvestment}"
+						update="@form:typeInvestment-content"
+						oncomplete="PF('typeInvestmentDialog').show()"
+						styleClass="ui-button-raised ui-button-success" />
+
+					<p:commandButton id="typeInvestment-button-edit" process="typeInvestmentDataTable"
+						value="Edit" icon="pi pi-check"
+						actionListener="#{typeInvestmentView.editTypeInvestmentSelected}"
+						update="@form:typeInvestment-content"
+						oncomplete="PF('typeInvestmentDialog').show()"
+						styleClass="ui-button-raised ui-button-help"
+						disabled="#{!typeInvestmentView.hasTypeInvestmentsSelected()}" />
+
+					<p:commandButton id="typeInvestment-button-delete"
+						process="typeInvestmentDataTable" value="Delete" icon="pi pi-check"
+						oncomplete="PF('typeInvestmentDialog').show()"
+						styleClass="ui-button-raised ui-button-danger"
+						disabled="#{!typeInvestmentView.hasTypeInvestmentsSelected()}"
+						update="typeInvestmentDataTable" />
+				</f:facet>
+			</p:dataTable>
+		</div>
+		<p:dialog header="TypeInvestment" widgetVar="typeInvestmentDialog" modal="true"
+			showEffect="fade" minHeight="300" width="300" responsive="true">
+			<p:outputPanel id="typeInvestment-content" class="ui-fluid">
+				<div class="p-field">
+					<p:outputLabel for="name">Name</p:outputLabel>
+					<p:inputText id="name" value="#{typeInvestmentView.typeInvestmentSelected.name}"
+						required="true" />
+				</div>
+				
+				<div class="p-field">
+					<p:outputLabel for="name">Descripcion</p:outputLabel>
+					<p:inputText id="descripcion" value="#{typeInvestmentView.typeInvestmentSelected.description}"
+						required="true" />
+				</div>
+			</p:outputPanel>
+			<f:facet name="footer">
+				<p:commandButton value="Save" icon="pi pi-check"
+					actionListener="#{typeInvestmentView.saveTypeInvestment}"
+					update="typeInvestment-content typeInvestmentDataTable"
+					process="typeInvestment-content @this" />
+				<p:commandButton value="Cancel" icon="pi pi-times"
+					onclick="PF('typeInvestmentDialog').hide()" class="ui-button-secondary" />
+			</f:facet>
+		</p:dialog>
+		<p:confirmDialog id="prueba" widgetVar="deleteDialog"
+			showEffect="fade" width="300" message="Delete the item?"
+			header="Confirm" severity="warn">
+			<p:commandButton value="Yes" icon="pi pi-check"
+				actionListener="#{typeInvestmentView.deleteTypeInvestment}" process="@this"
+				oncomplete="PF('deleteDialog').hide()"
+				update="typeInvestmentDataTable @form:messages" />
+			<p:commandButton value="No" type="button"
+				styleClass="ui-button-secondary" icon="pi pi-times"
+				onclick="PF('deleteDialog').hide()" />
+		</p:confirmDialog>
+			</h:form>
+
+	</div>
 	
 	
 	

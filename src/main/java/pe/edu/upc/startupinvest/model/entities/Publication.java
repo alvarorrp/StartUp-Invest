@@ -37,7 +37,7 @@ public class Publication {
 	@Column(name="publication_description",length=500,nullable=false)
 	private String description;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "startup_id", nullable = false)
 	private Startup startup;
 	

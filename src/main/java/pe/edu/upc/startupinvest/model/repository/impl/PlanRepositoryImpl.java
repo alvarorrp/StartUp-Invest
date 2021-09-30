@@ -7,9 +7,11 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import pe.edu.upc.startupinvest.model.entities.Plan;
+import pe.edu.upc.startupinvest.model.entities.PlanHistory;
 import pe.edu.upc.startupinvest.model.repository.PlanRepository;
 @Named
 @ApplicationScoped
@@ -45,6 +47,20 @@ public class PlanRepositoryImpl  implements PlanRepository{
 		// Getting result list
 		entities = typedQuery.getResultList();		
 		return entities;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Plan> list() {
+		List<Plan>lista =new ArrayList<Plan>();
+		try {
+			Query q=entityManager.createQuery("From Plan plans");
+			lista=(List<Plan>) q.getResultList();
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return lista;
 	}
 	
 }

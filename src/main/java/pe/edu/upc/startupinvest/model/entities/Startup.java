@@ -34,7 +34,7 @@ public class Startup {
 	@Column(name = "startup_id", length = 5, nullable = false)
 	private Integer id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "category_ID", nullable = false)
 	private Category category;
 

@@ -45,5 +45,12 @@ public class CategoryServiceImpl implements CategoryService {
 	public  List<Category> findByState(boolean state) throws Exception {
 		return categoryRepository.findByState(state) ;	
 	}
+
+
+	@Override
+	public List<Category> list() {
+		// TODO Auto-generated method stub
+		return categoryRepository.list();
+	}
 	
 }

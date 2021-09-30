@@ -19,5 +19,5 @@ public interface StartupService extends CrudService<Startup, Integer> {
 	List <Startup> findByDateRecently() throws Exception;  
 	List <Startup> findByDateBetween(Date date1, Date date2) throws Exception;
 	List <Startup> findByPopular() throws Exception;
-
+	public List<Startup> list();
 }

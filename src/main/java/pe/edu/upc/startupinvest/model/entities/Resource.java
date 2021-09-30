@@ -28,7 +28,7 @@ public class Resource {
 	@Column(name = "resource_document", length = 5, nullable = true)
 	private Byte document;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "startup_id", nullable = false)
 	private Startup startup;
 	

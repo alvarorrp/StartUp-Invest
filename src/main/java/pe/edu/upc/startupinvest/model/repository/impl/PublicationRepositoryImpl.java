@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import pe.edu.upc.startupinvest.model.entities.Plan;
 import pe.edu.upc.startupinvest.model.entities.Publication;
 import pe.edu.upc.startupinvest.model.repository.PublicationRepository;
 public class PublicationRepositoryImpl implements  PublicationRepository{
@@ -42,6 +44,20 @@ public class PublicationRepositoryImpl implements  PublicationRepository{
 		// Getting result list
 		entities = typedQuery.getResultList();		
 		return entities;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Publication> list() {
+		List<Publication>lista =new ArrayList<Publication>();
+		try {
+			Query q=entityManager.createQuery("From Publication publications");
+			lista=(List<Publication>) q.getResultList();
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return lista;
 	}
 	
 }

@@ -9,5 +9,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	List<Category>findByName(String name) throws Exception;	
 	List<Category>findByState (boolean state) throws Exception;
 	
-	
+	public List<Category> list();
 }

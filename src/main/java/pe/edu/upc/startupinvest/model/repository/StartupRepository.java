@@ -3,6 +3,7 @@ package pe.edu.upc.startupinvest.model.repository;
 import java.util.Date;
 import java.util.List;
 
+import pe.edu.upc.startupinvest.model.entities.Resource;
 import pe.edu.upc.startupinvest.model.entities.Startup;
 
 public interface StartupRepository extends JpaRepository<Startup, Integer> {
@@ -16,5 +17,5 @@ public interface StartupRepository extends JpaRepository<Startup, Integer> {
 																				// registro
 
 	List<Startup> findByPopular() throws Exception; // Buscar Startups mas populares FALTA EL TOP
-
+	public List<Startup> list();
 }

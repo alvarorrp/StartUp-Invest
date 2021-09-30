@@ -19,7 +19,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
 	<exclude-unlisted-classes>false</exclude-unlisted-classes>
 	<properties>
 	<!-- update | drop-and-create -->
-	<property name="javax.persistence.schema-generation.database.action" value="update"/>
+	<property name="javax.persistence.schema-generation.database.action" value="create"/>
 	</properties>
 	</persistence-unit>
 </persistence>

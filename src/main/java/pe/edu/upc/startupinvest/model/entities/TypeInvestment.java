@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
@@ -18,6 +20,7 @@ import javax.persistence.Table;
 @SequenceGenerator(name = "TypesInvestment_type_investment_id_seq", initialValue = 1, allocationSize = 1)
 public class TypeInvestment {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TypesInvestment_type_investment_id_seq")
 	@Column(name = "type_investment_id", length = 5, nullable = false)
 	private Integer id;
 	

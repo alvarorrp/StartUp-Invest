@@ -16,5 +16,5 @@ public interface CategoryService extends CrudService<Category, Integer> {
 	List<Category> findAll() throws Exception;
 	List<Category> findByName(String name) throws Exception;
 	List<Category> findByState(boolean state) throws Exception;
-	
+	public List<Category> list();
 }

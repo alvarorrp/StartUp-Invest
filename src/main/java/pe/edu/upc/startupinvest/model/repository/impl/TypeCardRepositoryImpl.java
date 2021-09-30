@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import pe.edu.upc.startupinvest.model.entities.Startup;
 import pe.edu.upc.startupinvest.model.entities.TypeCard;
 import pe.edu.upc.startupinvest.model.repository.TypeCardRepository;
 
@@ -42,4 +44,19 @@ public class TypeCardRepositoryImpl implements TypeCardRepository {
 		entities = typedQuery.getResultList();		
 		return entities;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TypeCard> list() {
+		List<TypeCard>lista =new ArrayList<TypeCard>();
+		try {
+			Query q=entityManager.createQuery("From TypeCard typeCards");
+			lista=(List<TypeCard>) q.getResultList();
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return lista;
+	}
+	
 }

@@ -30,11 +30,11 @@ public class InvestmentRequest {
 	@Column(name = "investment_request_id", length = 5, nullable = false)
 	private Integer id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "startup_id")
 	private Startup startup;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name = "type_investment_id")
 	private TypeInvestment typeInvestment;
 

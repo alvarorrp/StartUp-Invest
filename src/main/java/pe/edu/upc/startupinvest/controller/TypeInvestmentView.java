@@ -36,18 +36,18 @@ public class TypeInvestmentView implements Serializable {
 	public void init() {
 		typeInvestmentsSelected = new ArrayList<>();
 		typeInvestmentSearch = new TypeInvestment();
-		getAllCategory();
+		getAllTypeInvestment();
 
 	}
 
-	public boolean hastypeInvestmentsSelected() {
+	public boolean hasTypeInvestmentsSelected() {
 		if (typeInvestmentsSelected.isEmpty()) {
 			return false;
 		}
 		return true;
 	}
 
-	public boolean hastypeInvestmentSelected() {
+	public boolean hasTypeInvestmentSelected() {
 		if (typeInvestmentsSelected.size() == 1) {
 			return true;
 		}
@@ -91,15 +91,15 @@ public class TypeInvestmentView implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "Remove", "Item Removed"));
 	}
 
-	/*public void searchCategory() {
+	public void searchTypeInvestment() {
 		try {
 			typeInvestments = typeInvestmentService.findByName(typeInvestmentSearch.getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 
-	public void getAllCategory() {
+	public void getAllTypeInvestment() {
 		try {
 			typeInvestments = typeInvestmentService.getAll();
 		} catch (Exception e) {
@@ -107,36 +107,36 @@ public class TypeInvestmentView implements Serializable {
 		}
 	}
 
-	public List<TypeInvestment> getCategories() {
+	public List<TypeInvestment> getTypeInvestments() {
 		return typeInvestments;
 	}
 
-	public void setCategories(List<TypeInvestment> categories) {
-		this.typeInvestments = categories;
+	public void setTypeInvestments(List<TypeInvestment> typeInvestments) {
+		this.typeInvestments = typeInvestments;
 	}
 
-	public TypeInvestment getCategorySelected() {
+	public TypeInvestment getTypeInvestmentSelected() {
 		return typeInvestmentSelected;
 	}
 
-	public void setCategorySelected(TypeInvestment categorySelected) {
-		this.typeInvestmentSelected = categorySelected;
+	public void setTypeInvestmentSelected(TypeInvestment typeInvestmentSelected) {
+		this.typeInvestmentSelected = typeInvestmentSelected;
 	}
 
 	public List<TypeInvestment> getTypeInvestmentsSelected() {
 		return typeInvestmentsSelected;
 	}
 
-	public void setTypeInvestmentsSelected(List<TypeInvestment> categoriesSelected) {
-		this.typeInvestmentsSelected = categoriesSelected;
+	public void setTypeInvestmentsSelected(List<TypeInvestment> typeInvestmentsSelected) {
+		this.typeInvestmentsSelected = typeInvestmentsSelected;
 	}
 
-	public TypeInvestment getCategorySearch() {
+	public TypeInvestment getTypeInvestmentSearch() {
 		return typeInvestmentSearch;
 	}
 
-	public void setCategorySearch(TypeInvestment categorySearch) {
-		this.typeInvestmentSearch = categorySearch;
+	public void setTypeInvestmentSearch(TypeInvestment typeInvestmentSearch) {
+		this.typeInvestmentSearch = typeInvestmentSearch;
 	}
 
 	public TypeInvestmentService getTypeInvestmentService() {
@@ -151,4 +151,5 @@ public class TypeInvestmentView implements Serializable {
 		return serialVersionUID;
 	}
 
+	
 }

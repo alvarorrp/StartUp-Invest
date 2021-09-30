@@ -6,7 +6,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import pe.edu.upc.startupinvest.model.entities.Category;
 import pe.edu.upc.startupinvest.model.entities.Plan;
 import pe.edu.upc.startupinvest.model.repository.JpaRepository;
 import pe.edu.upc.startupinvest.model.repository.PlanRepository;
@@ -34,5 +33,10 @@ public class PlanServiceImpl implements PlanService {
 		return planRepository.findAll();
 	}
 	
+	@Override
+	public List<Plan> list() {
+		// TODO Auto-generated method stub
+		return planRepository.list();
+	}
 	
 }
