@@ -11,16 +11,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Categories", indexes = { @Index(columnList = "category_id", name = "categories_index_category_id"),
+<<<<<<< Updated upstream
 		@Index(columnList = "category_name", name = "categories_index_category_name") })
 @SequenceGenerator(name = "Categories_category_id_seq", initialValue = 1, allocationSize = 1)
+=======
+		                                @Index(columnList = "category_name", name = "categories_index_category_name"),
+		                                @Index(columnList= "category_state",name ="categories_index_category_state")
+})
+//@SequenceGenerator(name = "Categories_category_id_seq", initialValue = 1, allocationSize = 1)
+>>>>>>> Stashed changes
 public class Category {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Categories_category_id_seq")
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Categories_category_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "category_id", length = 5, nullable = false)
 	private Integer id;
 

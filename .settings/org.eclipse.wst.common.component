@@ -4,6 +4,13 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< Updated upstream
+=======
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+                                
+        
+        
+>>>>>>> Stashed changes
         <property name="context-root" value="startupinvest"/>
         <property name="java-output-path" value="/startupinvest/target/classes"/>
     </wb-module>
